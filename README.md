@@ -12,8 +12,7 @@
 ## SCILDdocs
 
 **SCILDdocs** contains the full documentation, tutorials, and example analyses for  
-**[SCILD](https://github.com/jiatingyu-amss/SCILD)** —  
-an interpretable computational framework for inferring spatial cell–cell communication  
+**[SCILD](https://github.com/jiatingyu-amss/SCILD)**—an interpretable computational framework for inferring spatial cell–cell communication  
 from spatial transcriptomics data.
 
 ---
