@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MouseCortex (STARmap) Analysis Tutorial &mdash; SCILD 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MouseBrain (MERFISH) Analysis Tutorial" href="SCILD_MouseBrain_MERFISH.html" />
+    <link rel="prev" title="AdultMouseBrain (Visium) Analysis Tutorial" href="SCILD_AdultMouseBrain_Visium.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/SCILDlogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SCILD_HumanBreastCancer_Xenium.html">HumanBreastCancer (Xenium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_HumanBreastCancer_Visium.html">HumanBreastCancer (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_AdultMouseBrain_Visium.html">AdultMouseBrain (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MouseCortex (STARmap) Analysis Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Import-data">Import data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-L-R-database">Create L-R database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Run-SCILD">Run SCILD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Extract-LR-CCC">Extract LR CCC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Visualization">Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Cell-group-level-results">Cell-group level results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseBrain_MERFISH.html">MouseBrain (MERFISH) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseEmbryo_MOSTA.html">MOSTA (Stereoseq) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_PDAC_Visium.html">PDAC (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_HumanBreastCancer_Xenium.html">HumanBreastCancer (Xenium) In Silico Knockout Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_HumanBreastCancer_Visium.html">HumanBreastCancer (Visium) In Silico Knockout Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_AdultMouseBrain_Visium.html">AdultMouseBrain (Visium) In Silico Knockout Tutorial</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SCILD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">MouseCortex (STARmap) Analysis Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/analyses/SCILD_MouseCortex_STARmap.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="MouseCortex-(STARmap)-Analysis-Tutorial">
+<h1>MouseCortex (STARmap) Analysis Tutorial<a class="headerlink" href="#MouseCortex-(STARmap)-Analysis-Tutorial" title="Link to this heading"></a></h1>
+<p style="color:#1E90FF;"><p>Data availability: All processed spatial transcriptomics datasets are publicly available on Zenodo: <a class="reference external" href="https://doi.org/10.5281/zenodo.17522268">https://doi.org/10.5281/zenodo.17522268</a></p>
+</p><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.SCILD_main</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">models.help_func</span> <span class="kn">import</span> <span class="n">create_LRDatabase_D</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">squidpy</span> <span class="k">as</span> <span class="nn">sq</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Import-data">
+<h2>Import data<a class="headerlink" href="#Import-data" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s1">&#39;./data/MouseCortexSTARmap_adata_processed.h5ad&#39;</span><span class="p">)</span>
+<span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 1207 × 1016
+    obs: &#39;Total_counts&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;label&#39;, &#39;region&#39;, &#39;Region&#39;, &#39;n_genes&#39;
+    var: &#39;n_cells&#39;
+    uns: &#39;label_colors&#39;, &#39;log1p&#39;
+    obsm: &#39;spatial&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_MouseCortex_STARmap_5_0.png" src="../_images/analyses_SCILD_MouseCortex_STARmap_5_0.png" />
+</div>
+</div>
+</section>
+<section id="Create-L-R-database">
+<h2>Create L-R database<a class="headerlink" href="#Create-L-R-database" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LRDatabase_D</span> <span class="o">=</span> <span class="n">create_LRDatabase_D</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">min_cell_pct</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;CellChat&#39;</span><span class="p">,</span>
+    <span class="n">species</span><span class="o">=</span><span class="s1">&#39;mouse&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LRDatabase_D</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(11, 13)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">LRDatabase_D</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_MouseCortex_STARmap_9_0.png" src="../_images/analyses_SCILD_MouseCortex_STARmap_9_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">LRDatabase_D</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_MouseCortex_STARmap_10_0.png" src="../_images/analyses_SCILD_MouseCortex_STARmap_10_0.png" />
+</div>
+</div>
+</section>
+<section id="Run-SCILD">
+<h2>Run SCILD<a class="headerlink" href="#Run-SCILD" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span> <span class="o">=</span> <span class="n">SCILD</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+                <span class="n">LRDatabase_D</span><span class="o">=</span><span class="n">LRDatabase_D</span><span class="p">,</span>
+                <span class="n">neighbor_k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="n">alpha_q</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">alpha_f</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">alpha_g</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">niter_max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                <span class="n">eps</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">plot_error</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+<span class="n">CCCProb</span><span class="o">.</span><span class="n">preparing</span><span class="p">()</span>
+<span class="n">nl</span> <span class="o">=</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">nl</span>
+<span class="n">nr</span> <span class="o">=</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">nr</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">ns</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The number of ligand is: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nl</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The number of receptor is: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The number of spot is: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ns</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+*************Preparing*************
+neighbor_k: 5
+The number of ligand is: 11
+The number of receptor is: 13
+The number of spot is: 1207
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">nl</span> <span class="o">*</span> <span class="n">ns</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">v0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">nr</span> <span class="o">*</span> <span class="n">ns</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">CCCProb</span><span class="o">.</span><span class="n">solving_optimization</span><span class="p">(</span><span class="n">mu0</span><span class="p">,</span> <span class="n">v0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+*************Solving*************
+The relative error is: 0.052271085909753386
+The relative error is: 0.026909460993507484
+The relative error is: 0.018808243915701947
+The relative error is: 0.014696116192999268
+The relative error is: 0.012194171283590878
+The relative error is: 0.010493618923185195
+The relative error is: 0.009253809055894562
+The relative error is: 0.008297217631388671
+The relative error is: 0.007538483815185315
+The relative error is: 0.006908431785006902
+
+ The final relative error is: 0.006908431785006902
+The total iteration step is: 100
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_MouseCortex_STARmap_13_1.png" src="../_images/analyses_SCILD_MouseCortex_STARmap_13_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 1207 × 1016
+    obs: &#39;Total_counts&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;label&#39;, &#39;region&#39;, &#39;Region&#39;, &#39;n_genes&#39;
+    var: &#39;n_cells&#39;
+    uns: &#39;label_colors&#39;, &#39;log1p&#39;
+    obsm: &#39;spatial&#39;, &#39;sum-sender-Q&#39;, &#39;sum-sender-P&#39;, &#39;sum-receiver&#39;
+</pre></div></div>
+</div>
+</section>
+<section id="Extract-LR-CCC">
+<h2>Extract LR CCC<a class="headerlink" href="#Extract-LR-CCC" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span><span class="o">.</span><span class="n">query_all_LR</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span><span class="o">.</span><span class="n">tensor_P</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(1207, 1207, 11, 13)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_dict</span> <span class="o">=</span> <span class="n">tensor_to_method_result</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">tensor_P</span><span class="p">,</span>
+                                   <span class="nb">list</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">LRDatabase_D</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
+                                   <span class="nb">list</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">LRDatabase_D</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">res_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+143
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_dict</span> <span class="o">=</span> <span class="n">filter_method_result_by_LR_database</span><span class="p">(</span><span class="n">res_dict</span><span class="p">,</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">LRDatabase_D</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">res_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+16
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./results/MouseCortexSTARmap_SCILD_result.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">res_dict</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Visualization">
+<h2>Visualization<a class="headerlink" href="#Visualization" title="Link to this heading"></a></h2>
+<p>select L-Rs to show (spatial)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCC_df</span> <span class="o">=</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">compute_TSSR</span><span class="p">()</span>
+<span class="n">CCC_adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">AnnData</span><span class="p">(</span><span class="n">CCC_df</span><span class="p">)</span>
+<span class="n">CCC_adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">]</span>
+<span class="n">CCC_adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 1207 × 32
+    obsm: &#39;spatial&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LR_df_spatial</span> <span class="o">=</span> <span class="n">compute_spatial_autocorrelation</span><span class="p">(</span><span class="n">CCC_adata</span><span class="p">)</span>
+<span class="n">LR_df_spatial</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;moran_I&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>moran_I</th>
+      <th>p_value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Cort-&gt;Sstr2 (S)</th>
+      <td>0.054677</td>
+      <td>0.000007</td>
+    </tr>
+    <tr>
+      <th>Ptn-&gt;Sdc4 (R)</th>
+      <td>0.046113</td>
+      <td>0.000146</td>
+    </tr>
+    <tr>
+      <th>Agt-&gt;Mas1 (S)</th>
+      <td>0.035333</td>
+      <td>0.003434</td>
+    </tr>
+    <tr>
+      <th>Nts-&gt;Ntsr1 (R)</th>
+      <td>0.034429</td>
+      <td>0.004333</td>
+    </tr>
+    <tr>
+      <th>Cort-&gt;Sstr2 (R)</th>
+      <td>0.032446</td>
+      <td>0.007094</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">CCC_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">CCC_df</span>
+<span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total_counts</th>
+      <th>X</th>
+      <th>Y</th>
+      <th>label</th>
+      <th>region</th>
+      <th>Region</th>
+      <th>n_genes</th>
+      <th>Agt-&gt;Agtr1a (S)</th>
+      <th>Agt-&gt;Agtr1a (R)</th>
+      <th>Agt-&gt;Mas1 (S)</th>
+      <th>...</th>
+      <th>Ptn-&gt;Sdc4 (S)</th>
+      <th>Ptn-&gt;Sdc4 (R)</th>
+      <th>Sst-&gt;Sstr2 (S)</th>
+      <th>Sst-&gt;Sstr2 (R)</th>
+      <th>Sst-&gt;Sstr4 (S)</th>
+      <th>Sst-&gt;Sstr4 (R)</th>
+      <th>Tac1-&gt;Tacr1 (S)</th>
+      <th>Tac1-&gt;Tacr1 (R)</th>
+      <th>Tac2-&gt;Tacr3 (S)</th>
+      <th>Tac2-&gt;Tacr3 (R)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Cell_9</th>
+      <td>310</td>
+      <td>4923.981189</td>
+      <td>6385.325072</td>
+      <td>L6</td>
+      <td>L6</td>
+      <td>L6</td>
+      <td>172</td>
+      <td>5.414109e-40</td>
+      <td>4.523904e-41</td>
+      <td>2.022792e-40</td>
+      <td>...</td>
+      <td>6.435828e-36</td>
+      <td>9.787740e-41</td>
+      <td>8.167089e-41</td>
+      <td>1.104392e-40</td>
+      <td>8.166829e-41</td>
+      <td>1.127038e-40</td>
+      <td>5.620536e-33</td>
+      <td>4.216899e-33</td>
+      <td>2.644513e-33</td>
+      <td>1.544943e-20</td>
+    </tr>
+    <tr>
+      <th>Cell_10</th>
+      <td>533</td>
+      <td>8672.380950</td>
+      <td>6381.623205</td>
+      <td>L4</td>
+      <td>L4</td>
+      <td>L4</td>
+      <td>277</td>
+      <td>4.116200e-42</td>
+      <td>1.644313e-07</td>
+      <td>4.117668e-42</td>
+      <td>...</td>
+      <td>7.188480e-35</td>
+      <td>1.113139e+00</td>
+      <td>8.462995e-39</td>
+      <td>2.069282e-42</td>
+      <td>8.462995e-39</td>
+      <td>2.069051e-42</td>
+      <td>2.369281e-28</td>
+      <td>1.409818e-34</td>
+      <td>2.134403e+00</td>
+      <td>3.025348e-07</td>
+    </tr>
+    <tr>
+      <th>Cell_13</th>
+      <td>452</td>
+      <td>11490.769884</td>
+      <td>6388.780827</td>
+      <td>L2/3</td>
+      <td>L2/3</td>
+      <td>L2/3</td>
+      <td>237</td>
+      <td>2.609897e-35</td>
+      <td>8.247302e-04</td>
+      <td>2.144022e-42</td>
+      <td>...</td>
+      <td>5.502076e-41</td>
+      <td>4.591599e-11</td>
+      <td>7.836031e-40</td>
+      <td>8.373780e-42</td>
+      <td>1.611859e-38</td>
+      <td>8.373772e-42</td>
+      <td>3.817329e-33</td>
+      <td>3.999034e-19</td>
+      <td>3.140604e-07</td>
+      <td>3.320217e-21</td>
+    </tr>
+    <tr>
+      <th>Cell_15</th>
+      <td>288</td>
+      <td>3224.183789</td>
+      <td>6397.483509</td>
+      <td>L6</td>
+      <td>L6</td>
+      <td>L6</td>
+      <td>183</td>
+      <td>2.307080e-35</td>
+      <td>3.859754e-09</td>
+      <td>2.853524e-43</td>
+      <td>...</td>
+      <td>1.078730e-36</td>
+      <td>3.829356e-43</td>
+      <td>1.316024e-42</td>
+      <td>7.830919e-44</td>
+      <td>2.443178e-35</td>
+      <td>7.826487e-44</td>
+      <td>5.249070e-36</td>
+      <td>1.215211e-08</td>
+      <td>5.360335e-08</td>
+      <td>3.023774e-20</td>
+    </tr>
+    <tr>
+      <th>Cell_16</th>
+      <td>457</td>
+      <td>7525.997126</td>
+      <td>6389.746007</td>
+      <td>L4</td>
+      <td>L4</td>
+      <td>L4</td>
+      <td>268</td>
+      <td>2.286463e-04</td>
+      <td>6.236174e-21</td>
+      <td>1.340508e-08</td>
+      <td>...</td>
+      <td>2.315510e-35</td>
+      <td>2.315508e-35</td>
+      <td>3.376019e-35</td>
+      <td>3.375992e-35</td>
+      <td>2.977054e-44</td>
+      <td>1.118231e-44</td>
+      <td>1.134746e-33</td>
+      <td>1.728572e-08</td>
+      <td>2.065144e-34</td>
+      <td>6.488119e-09</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 39 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;Ptn-&gt;Sdc4 (R)&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">img_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_MouseCortex_STARmap_26_0.png" src="../_images/analyses_SCILD_MouseCortex_STARmap_26_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Ptn&quot;</span><span class="p">,</span> <span class="s2">&quot;Sdc4&quot;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">img_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_MouseCortex_STARmap_27_0.png" src="../_images/analyses_SCILD_MouseCortex_STARmap_27_0.png" />
+</div>
+</div>
+</section>
+<section id="Cell-group-level-results">
+<h2>Cell-group level results<a class="headerlink" href="#Cell-group-level-results" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.help_func</span> <span class="kn">import</span> <span class="n">aggregate_to_group</span>
+
+<span class="n">cell_to_group</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="n">group_result</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">lr_key</span><span class="p">,</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="n">res_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">group_matrix</span> <span class="o">=</span> <span class="n">aggregate_to_group</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">cell_to_group</span><span class="p">)</span>
+    <span class="n">group_result</span><span class="p">[</span><span class="n">lr_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_matrix</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SCILD_AdultMouseBrain_Visium.html" class="btn btn-neutral float-left" title="AdultMouseBrain (Visium) Analysis Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SCILD_MouseBrain_MERFISH.html" class="btn btn-neutral float-right" title="MouseBrain (MERFISH) Analysis Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

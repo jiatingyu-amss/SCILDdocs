@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HumanBreastCancer (Xenium) In Silico Knockout Tutorial &mdash; SCILD 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="HumanBreastCancer (Visium) In Silico Knockout Tutorial" href="TG_HumanBreastCancer_Visium.html" />
+    <link rel="prev" title="PDAC (Visium) Analysis Tutorial" href="SCILD_PDAC_Visium.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/SCILDlogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SCILD_HumanBreastCancer_Xenium.html">HumanBreastCancer (Xenium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_HumanBreastCancer_Visium.html">HumanBreastCancer (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_AdultMouseBrain_Visium.html">AdultMouseBrain (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseCortex_STARmap.html">MouseCortex (STARmap) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseBrain_MERFISH.html">MouseBrain (MERFISH) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseEmbryo_MOSTA.html">MOSTA (Stereoseq) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_PDAC_Visium.html">PDAC (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HumanBreastCancer (Xenium) In Silico Knockout Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Import-data-and-SCILD-results">Import data and SCILD results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Train-the-NN-model">Train the NN model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#In-silico-knockout-of-CXCL12-&gt;CXCR4">In silico knockout of CXCL12-&gt;CXCR4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#In-silico-knockout-of-PTN-&gt;SDC4">In silico knockout of PTN-&gt;SDC4</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="TG_HumanBreastCancer_Visium.html">HumanBreastCancer (Visium) In Silico Knockout Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_AdultMouseBrain_Visium.html">AdultMouseBrain (Visium) In Silico Knockout Tutorial</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SCILD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">HumanBreastCancer (Xenium) In Silico Knockout Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/analyses/TG_HumanBreastCancer_Xenium.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="HumanBreastCancer-(Xenium)-In-Silico-Knockout-Tutorial">
+<h1>HumanBreastCancer (Xenium) In Silico Knockout Tutorial<a class="headerlink" href="#HumanBreastCancer-(Xenium)-In-Silico-Knockout-Tutorial" title="Link to this heading"></a></h1>
+<p style="color:#1E90FF;"><p>Note: To run this notebook, please first complete and execute the HumanBreastCancer (Xenium) Analysis Tutorial notebook and save the resulting output files as instructed.</p>
+</p><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.downstreamGenes</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">squidpy</span> <span class="k">as</span> <span class="nn">sq</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">models.help_func</span> <span class="kn">import</span> <span class="n">build_cell_lr_tensor</span><span class="p">,</span><span class="n">set_seed</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/jtyu@ZHANGroup.local/miniconda3/envs/scild/lib/python3.10/site-packages/dask/dataframe/__init__.py:31: FutureWarning: The legacy Dask DataFrame implementation is deprecated and will be removed in a future version. Set the configuration option `dataframe.query-planning` to `True` or None to enable the new Dask Dataframe implementation and silence this warning.
+  warnings.warn(
+/home/jtyu@ZHANGroup.local/miniconda3/envs/scild/lib/python3.10/site-packages/anndata/utils.py:434: FutureWarning: Importing read_text from `anndata` is deprecated. Import anndata.io.read_text instead.
+  warnings.warn(msg, FutureWarning)
+</pre></div></div>
+</div>
+<section id="Import-data-and-SCILD-results">
+<h2>Import data and SCILD results<a class="headerlink" href="#Import-data-and-SCILD-results" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># mode = &#39;DCIS1&#39;</span>
+<span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;DCIS2&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;./data/HumanBreastCancerXenium_adata_processed_</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">.h5ad&#39;</span><span class="p">)</span>
+<span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 4794 × 311
+    obs: &#39;cell_id&#39;, &#39;transcript_counts&#39;, &#39;control_probe_counts&#39;, &#39;control_codeword_counts&#39;, &#39;total_counts&#39;, &#39;cell_area&#39;, &#39;nucleus_area&#39;, &#39;region&#39;, &#39;celltype&#39;, &#39;in_roi&#39;, &#39;n_genes&#39;
+    var: &#39;gene_ids&#39;, &#39;feature_types&#39;, &#39;genome&#39;, &#39;n_cells&#39;
+    uns: &#39;celltype_colors&#39;, &#39;log1p&#39;, &#39;spatialdata_attrs&#39;
+    obsm: &#39;spatial&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./results/HumanBreastCancerXenium_</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">_SCILD_result.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">SCILD_res</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SCILD_res</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;CXCL12_CXCR4&#39;: array([[0.00e+00, 0.00e+00, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00],
+        [0.00e+00, 0.00e+00, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00],
+        [0.00e+00, 0.00e+00, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00],
+        ...,
+        [0.00e+00, 0.00e+00, 0.00e+00, ..., 3.81e-01, 0.00e+00, 3.91e-03],
+        [0.00e+00, 0.00e+00, 0.00e+00, ..., 9.74e-05, 0.00e+00, 4.15e-01],
+        [0.00e+00, 0.00e+00, 0.00e+00, ..., 9.61e-49, 0.00e+00, 5.37e-47]]),
+ &#39;EDN1_EDNRB&#39;: array([[0.00e+00, 7.17e-47, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00],
+        [0.00e+00, 6.20e-47, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00],
+        [0.00e+00, 6.24e-47, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00],
+        ...,
+        [0.00e+00, 0.00e+00, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00],
+        [0.00e+00, 0.00e+00, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00],
+        [0.00e+00, 0.00e+00, 0.00e+00, ..., 0.00e+00, 0.00e+00, 0.00e+00]]),
+ &#39;PTN_SDC4&#39;: array([[0., 0., 0., ..., 0., 0., 0.],
+        [0., 0., 0., ..., 0., 0., 0.],
+        [0., 0., 0., ..., 0., 0., 0.],
+        ...,
+        [0., 0., 0., ..., 0., 0., 0.],
+        [0., 0., 0., ..., 0., 0., 0.],
+        [0., 0., 0., ..., 0., 0., 0.]])}
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SCILD_tensor</span><span class="p">,</span> <span class="n">ligands</span><span class="p">,</span> <span class="n">receptors</span> <span class="o">=</span> <span class="n">build_cell_lr_tensor</span><span class="p">(</span><span class="n">SCILD_res</span><span class="p">,</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ligand_to_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">lig</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lig</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ligands</span><span class="p">)}</span>
+<span class="n">receptor_to_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">rec</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">rec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">receptors</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SCILD_tensor</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(4794, 3, 3)
+</pre></div></div>
+</div>
+</section>
+<section id="Train-the-NN-model">
+<h2>Train the NN model<a class="headerlink" href="#Train-the-NN-model" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span>
+    <span class="n">SCILD_tensor</span><span class="p">,</span>
+    <span class="n">Y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">A</span><span class="p">,</span>
+    <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+    <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+    <span class="n">val_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">patience</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Training Epochs:  26%|██▌       | 130/500 [00:22&lt;01:03,  5.79it/s, Epoch=131, Train Loss=2.5540, Val Loss=2.5463, LR=0.000002]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Early stopping at epoch 132
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_HumanBreastCancer_Xenium_11_2.png" src="../_images/analyses_TG_HumanBreastCancer_Xenium_11_2.png" />
+</div>
+</div>
+</section>
+<section id="In-silico-knockout-of-CXCL12-&gt;CXCR4">
+<h2>In silico knockout of CXCL12-&gt;CXCR4<a class="headerlink" href="#In-silico-knockout-of-CXCL12->CXCR4" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ligand_</span> <span class="o">=</span> <span class="s2">&quot;CXCL12&quot;</span>
+<span class="n">receptor_</span> <span class="o">=</span>  <span class="s2">&quot;CXCR4&quot;</span>
+<span class="n">TG_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">ablation_results</span> <span class="o">=</span> <span class="n">ablation_analysis</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">SCILD_tensor</span><span class="p">,</span>
+    <span class="n">l_idx</span><span class="o">=</span><span class="n">ligand_to_index</span><span class="p">[</span><span class="n">ligand_</span><span class="p">],</span>
+    <span class="n">r_idx</span><span class="o">=</span><span class="n">receptor_to_index</span><span class="p">[</span><span class="n">receptor_</span><span class="p">],</span>
+    <span class="n">gene_names</span><span class="o">=</span><span class="n">TG_name</span><span class="p">,</span>
+    <span class="n">title_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;In silico knockout impact of L=</span><span class="si">{</span><span class="n">ligand_</span><span class="si">}</span><span class="s2">, R=</span><span class="si">{</span><span class="n">receptor_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">save_file</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;./results/HumanBreastCancerXenium_</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">_InSilicoKnockout_CXCL12CXCR4_result.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Top 10 affected genes (by magnitude) after ablating L=0, R=0:
+1. CXCR4 — Δexpr = -2.6814 ↓
+2. PTPRC — Δexpr = -1.5005 ↓
+3. CD3E — Δexpr = -1.2349 ↓
+4. IL7R — Δexpr = -1.2074 ↓
+5. TRAC — Δexpr = -1.1869 ↓
+6. KRT7 — Δexpr = +1.0784 ↑
+7. CYTIP — Δexpr = -1.0388 ↓
+8. TACSTD2 — Δexpr = +1.0169 ↑
+9. IL2RG — Δexpr = -0.9649 ↓
+10. CTTN — Δexpr = +0.9059 ↑
+
+Top 5 Upregulated Genes:
+1. KRT7 — Δexpr = +1.0784 ↑
+2. TACSTD2 — Δexpr = +1.0169 ↑
+3. CTTN — Δexpr = +0.9059 ↑
+4. SERPINA3 — Δexpr = +0.8682 ↑
+5. DSP — Δexpr = +0.8350 ↑
+
+Top 5 Downregulated Genes:
+1. CXCR4 — Δexpr = -2.6814 ↓
+2. PTPRC — Δexpr = -1.5005 ↓
+3. CD3E — Δexpr = -1.2349 ↓
+4. IL7R — Δexpr = -1.2074 ↓
+5. TRAC — Δexpr = -1.1869 ↓
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_HumanBreastCancer_Xenium_13_1.png" src="../_images/analyses_TG_HumanBreastCancer_Xenium_13_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_up_idx_50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;mean_delta&#39;</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">top_down_idx_50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;mean_delta&#39;</span><span class="p">])[:</span><span class="mi">50</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">save_genes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;up&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">top_up_idx_50</span><span class="p">],</span>
+                           <span class="s1">&#39;down&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">top_down_idx_50</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;top_up_idx&#39;</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_HumanBreastCancer_Xenium_16_1.png" src="../_images/analyses_TG_HumanBreastCancer_Xenium_16_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;top_down_idx&#39;</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_HumanBreastCancer_Xenium_17_1.png" src="../_images/analyses_TG_HumanBreastCancer_Xenium_17_1.png" />
+</div>
+</div>
+</section>
+<section id="In-silico-knockout-of-PTN-&gt;SDC4">
+<h2>In silico knockout of PTN-&gt;SDC4<a class="headerlink" href="#In-silico-knockout-of-PTN->SDC4" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ligand_</span> <span class="o">=</span> <span class="s2">&quot;PTN&quot;</span>
+<span class="n">receptor_</span> <span class="o">=</span>  <span class="s2">&quot;SDC4&quot;</span>
+<span class="n">TG_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">ablation_results</span> <span class="o">=</span> <span class="n">ablation_analysis</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">SCILD_tensor</span><span class="p">,</span>
+    <span class="n">l_idx</span><span class="o">=</span><span class="n">ligand_to_index</span><span class="p">[</span><span class="n">ligand_</span><span class="p">],</span>
+    <span class="n">r_idx</span><span class="o">=</span><span class="n">receptor_to_index</span><span class="p">[</span><span class="n">receptor_</span><span class="p">],</span>
+    <span class="n">gene_names</span><span class="o">=</span><span class="n">TG_name</span><span class="p">,</span>
+    <span class="n">title_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;In silico knockout impact of L=</span><span class="si">{</span><span class="n">ligand_</span><span class="si">}</span><span class="s2">, R=</span><span class="si">{</span><span class="n">receptor_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">save_file</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;./results/HumanBreastCancerXenium_</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">_InSilicoKnockout_PTNSDC4_result.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Top 10 affected genes (by magnitude) after ablating L=2, R=2:
+1. SDC4 — Δexpr = -0.2584 ↓
+2. KRT7 — Δexpr = -0.1285 ↓
+3. TACSTD2 — Δexpr = -0.1220 ↓
+4. KRT8 — Δexpr = -0.1075 ↓
+5. CEACAM6 — Δexpr = -0.1075 ↓
+6. EPCAM — Δexpr = -0.1062 ↓
+7. DSP — Δexpr = -0.1033 ↓
+8. CDH1 — Δexpr = -0.1006 ↓
+9. CD9 — Δexpr = -0.0987 ↓
+10. DSC2 — Δexpr = -0.0895 ↓
+
+Top 5 Upregulated Genes:
+1. ZEB2 — Δexpr = +0.0619 ↑
+2. CXCL12 — Δexpr = +0.0601 ↑
+3. POSTN — Δexpr = +0.0583 ↑
+4. LUM — Δexpr = +0.0560 ↑
+5. PTPRC — Δexpr = +0.0530 ↑
+
+Top 5 Downregulated Genes:
+1. SDC4 — Δexpr = -0.2584 ↓
+2. KRT7 — Δexpr = -0.1285 ↓
+3. TACSTD2 — Δexpr = -0.1220 ↓
+4. KRT8 — Δexpr = -0.1075 ↓
+5. CEACAM6 — Δexpr = -0.1075 ↓
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_HumanBreastCancer_Xenium_19_1.png" src="../_images/analyses_TG_HumanBreastCancer_Xenium_19_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_up_idx_50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;mean_delta&#39;</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">top_down_idx_50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;mean_delta&#39;</span><span class="p">])[:</span><span class="mi">50</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">save_genes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;up&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">top_up_idx_50</span><span class="p">],</span>
+                           <span class="s1">&#39;down&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">top_down_idx_50</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;top_up_idx&#39;</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_HumanBreastCancer_Xenium_22_1.png" src="../_images/analyses_TG_HumanBreastCancer_Xenium_22_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;top_down_idx&#39;</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_HumanBreastCancer_Xenium_23_1.png" src="../_images/analyses_TG_HumanBreastCancer_Xenium_23_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SCILD_PDAC_Visium.html" class="btn btn-neutral float-left" title="PDAC (Visium) Analysis Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="TG_HumanBreastCancer_Visium.html" class="btn btn-neutral float-right" title="HumanBreastCancer (Visium) In Silico Knockout Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

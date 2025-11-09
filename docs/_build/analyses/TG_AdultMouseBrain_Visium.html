@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdultMouseBrain (Visium) In Silico Knockout Tutorial &mdash; SCILD 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="HumanBreastCancer (Visium) In Silico Knockout Tutorial" href="TG_HumanBreastCancer_Visium.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/SCILDlogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SCILD_HumanBreastCancer_Xenium.html">HumanBreastCancer (Xenium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_HumanBreastCancer_Visium.html">HumanBreastCancer (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_AdultMouseBrain_Visium.html">AdultMouseBrain (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseCortex_STARmap.html">MouseCortex (STARmap) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseBrain_MERFISH.html">MouseBrain (MERFISH) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseEmbryo_MOSTA.html">MOSTA (Stereoseq) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_PDAC_Visium.html">PDAC (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_HumanBreastCancer_Xenium.html">HumanBreastCancer (Xenium) In Silico Knockout Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_HumanBreastCancer_Visium.html">HumanBreastCancer (Visium) In Silico Knockout Tutorial</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AdultMouseBrain (Visium) In Silico Knockout Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Import-data-and-SCILD-results">Import data and SCILD results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Train-the-NN-model">Train the NN model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#In-silico-knockout-of-Psap-&gt;Gpr37">In silico knockout of Psap-&gt;Gpr37</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#In-silico-knockout-of-Cck-&gt;Cckbr">In silico knockout of Cck-&gt;Cckbr</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SCILD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">AdultMouseBrain (Visium) In Silico Knockout Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/analyses/TG_AdultMouseBrain_Visium.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="AdultMouseBrain-(Visium)-In-Silico-Knockout-Tutorial">
+<h1>AdultMouseBrain (Visium) In Silico Knockout Tutorial<a class="headerlink" href="#AdultMouseBrain-(Visium)-In-Silico-Knockout-Tutorial" title="Link to this heading"></a></h1>
+<p style="color:#1E90FF;"><p>Note: To run this notebook, please first complete and execute the AdultMouseBrain (Visium) Analysis Tutorial notebook and save the resulting output files as instructed.</p>
+</p><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.downstreamGenes</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">squidpy</span> <span class="k">as</span> <span class="nn">sq</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">models.help_func</span> <span class="kn">import</span> <span class="n">build_cell_lr_tensor</span><span class="p">,</span><span class="n">set_seed</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/jtyu@ZHANGroup.local/miniconda3/envs/scild/lib/python3.10/site-packages/dask/dataframe/__init__.py:31: FutureWarning: The legacy Dask DataFrame implementation is deprecated and will be removed in a future version. Set the configuration option `dataframe.query-planning` to `True` or None to enable the new Dask Dataframe implementation and silence this warning.
+  warnings.warn(
+/home/jtyu@ZHANGroup.local/miniconda3/envs/scild/lib/python3.10/site-packages/anndata/utils.py:434: FutureWarning: Importing read_text from `anndata` is deprecated. Import anndata.io.read_text instead.
+  warnings.warn(msg, FutureWarning)
+</pre></div></div>
+</div>
+<section id="Import-data-and-SCILD-results">
+<h2>Import data and SCILD results<a class="headerlink" href="#Import-data-and-SCILD-results" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s1">&#39;./data/AdultMouseBrainVisium_adata_processed.h5ad&#39;</span><span class="p">)</span>
+<span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 704 × 16562
+    obs: &#39;in_tissue&#39;, &#39;array_row&#39;, &#39;array_col&#39;, &#39;cluster&#39;, &#39;cluster_short&#39;
+    var: &#39;gene_ids&#39;, &#39;feature_types&#39;, &#39;genome&#39;
+    uns: &#39;spatial&#39;
+    obsm: &#39;spatial&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./results/AdultMouseBrainVisium_SCILD_result.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">SCILD_res</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SCILD_tensor</span><span class="p">,</span> <span class="n">ligands</span><span class="p">,</span> <span class="n">receptors</span> <span class="o">=</span> <span class="n">build_cell_lr_tensor</span><span class="p">(</span><span class="n">SCILD_res</span><span class="p">,</span> <span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ligand_to_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">lig</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lig</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ligands</span><span class="p">)}</span>
+<span class="n">receptor_to_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">rec</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">rec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">receptors</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SCILD_tensor</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(704, 122, 137)
+</pre></div></div>
+</div>
+</section>
+<section id="Train-the-NN-model">
+<h2>Train the NN model<a class="headerlink" href="#Train-the-NN-model" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span>
+    <span class="n">SCILD_tensor</span><span class="p">,</span>
+    <span class="n">Y</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">A</span><span class="p">,</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+    <span class="n">val_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">patience</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Training Epochs:  23%|██▎       | 114/500 [00:44&lt;02:32,  2.54it/s, Epoch=115, Train Loss=0.0956, Val Loss=0.0972, LR=0.000031]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Early stopping at epoch 116
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_9_3.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_9_3.png" />
+</div>
+</div>
+</section>
+<section id="In-silico-knockout-of-Psap-&gt;Gpr37">
+<h2>In silico knockout of Psap-&gt;Gpr37<a class="headerlink" href="#In-silico-knockout-of-Psap->Gpr37" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ligand_</span> <span class="o">=</span> <span class="s1">&#39;Psap&#39;</span>
+<span class="n">receptor_</span> <span class="o">=</span> <span class="s1">&#39;Gpr37&#39;</span>
+<span class="n">TG_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">ablation_results</span> <span class="o">=</span> <span class="n">ablation_analysis</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">SCILD_tensor</span><span class="p">,</span>
+    <span class="n">l_idx</span><span class="o">=</span><span class="n">ligand_to_index</span><span class="p">[</span><span class="n">ligand_</span><span class="p">],</span>
+    <span class="n">r_idx</span><span class="o">=</span><span class="n">receptor_to_index</span><span class="p">[</span><span class="n">receptor_</span><span class="p">],</span>
+    <span class="n">gene_names</span><span class="o">=</span><span class="n">TG_name</span><span class="p">,</span>
+    <span class="n">title_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;In silico knockout impact of L=</span><span class="si">{</span><span class="n">ligand_</span><span class="si">}</span><span class="s2">, R=</span><span class="si">{</span><span class="n">receptor_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">save_file</span><span class="o">=</span><span class="s1">&#39;./results/AdultMouseBrainVisium_InSilicoKnockout_PsapGpr37_result.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Top 10 affected genes (by magnitude) after ablating L=81, R=55:
+1. Mobp — Δexpr = -0.2119 ↓
+2. Plp1 — Δexpr = -0.1989 ↓
+3. Cldn11 — Δexpr = -0.1740 ↓
+4. Mbp — Δexpr = -0.1651 ↓
+5. Mal — Δexpr = -0.1617 ↓
+6. Trf — Δexpr = -0.1613 ↓
+7. Cnp — Δexpr = -0.1607 ↓
+8. Ptgds — Δexpr = -0.1506 ↓
+9. Gpr37 — Δexpr = -0.1475 ↓
+10. Plekhb1 — Δexpr = -0.1435 ↓
+
+Top 5 Upregulated Genes:
+1. Nrgn — Δexpr = +0.0653 ↑
+2. Basp1 — Δexpr = +0.0652 ↑
+3. Chn1 — Δexpr = +0.0610 ↑
+4. Gria1 — Δexpr = +0.0585 ↑
+5. Gria2 — Δexpr = +0.0580 ↑
+
+Top 5 Downregulated Genes:
+1. Mobp — Δexpr = -0.2119 ↓
+2. Plp1 — Δexpr = -0.1989 ↓
+3. Cldn11 — Δexpr = -0.1740 ↓
+4. Mbp — Δexpr = -0.1651 ↓
+5. Mal — Δexpr = -0.1617 ↓
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_11_1.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_11_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">ligand_</span> <span class="o">+</span> <span class="s1">&#39;-&gt;&#39;</span> <span class="o">+</span> <span class="n">receptor_</span><span class="p">]</span> <span class="o">=</span> <span class="n">SCILD_tensor</span><span class="p">[:,</span> <span class="n">ligand_to_index</span><span class="p">[</span><span class="n">ligand_</span><span class="p">],</span> <span class="n">receptor_to_index</span><span class="p">[</span><span class="n">receptor_</span><span class="p">]]</span>
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">ligand_</span> <span class="o">+</span> <span class="s1">&#39;-&gt;&#39;</span> <span class="o">+</span> <span class="n">receptor_</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_12_1.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_12_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;top_up_idx&#39;</span><span class="p">]],</span>
+                      <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_13_1.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_13_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;top_down_idx&#39;</span><span class="p">]],</span>
+                      <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_14_1.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_14_1.png" />
+</div>
+</div>
+</section>
+<section id="In-silico-knockout-of-Cck-&gt;Cckbr">
+<h2>In silico knockout of Cck-&gt;Cckbr<a class="headerlink" href="#In-silico-knockout-of-Cck->Cckbr" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ligand_</span> <span class="o">=</span> <span class="s1">&#39;Cck&#39;</span>
+<span class="n">receptor_</span> <span class="o">=</span> <span class="s1">&#39;Cckbr&#39;</span>
+<span class="n">TG_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">ablation_results</span> <span class="o">=</span> <span class="n">ablation_analysis</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">SCILD_tensor</span><span class="p">,</span>
+    <span class="n">l_idx</span><span class="o">=</span><span class="n">ligand_to_index</span><span class="p">[</span><span class="n">ligand_</span><span class="p">],</span>
+    <span class="n">r_idx</span><span class="o">=</span><span class="n">receptor_to_index</span><span class="p">[</span><span class="n">receptor_</span><span class="p">],</span>
+    <span class="n">gene_names</span><span class="o">=</span><span class="n">TG_name</span><span class="p">,</span>
+    <span class="n">title_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;In silico knockout impact of L=</span><span class="si">{</span><span class="n">ligand_</span><span class="si">}</span><span class="s2">, R=</span><span class="si">{</span><span class="n">receptor_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">save_file</span><span class="o">=</span><span class="s1">&#39;./results/AdultMouseBrainVisium_InSilicoKnockout_CckCckbr_result.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Top 10 affected genes (by magnitude) after ablating L=15, R=17:
+1. Plp1 — Δexpr = +0.0223 ↑
+2. Mbp — Δexpr = +0.0195 ↑
+3. Mobp — Δexpr = +0.0191 ↑
+4. Cldn11 — Δexpr = +0.0160 ↑
+5. Mef2c — Δexpr = -0.0142 ↓
+6. Ptgds — Δexpr = +0.0138 ↑
+7. Mal — Δexpr = +0.0133 ↑
+8. Dbi — Δexpr = +0.0132 ↑
+9. Scd2 — Δexpr = +0.0131 ↑
+10. Mt1 — Δexpr = +0.0122 ↑
+
+Top 5 Upregulated Genes:
+1. Plp1 — Δexpr = +0.0223 ↑
+2. Mbp — Δexpr = +0.0195 ↑
+3. Mobp — Δexpr = +0.0191 ↑
+4. Cldn11 — Δexpr = +0.0160 ↑
+5. Ptgds — Δexpr = +0.0138 ↑
+
+Top 5 Downregulated Genes:
+1. Mef2c — Δexpr = -0.0142 ↓
+2. Arpp21 — Δexpr = -0.0115 ↓
+3. Ngef — Δexpr = -0.0111 ↓
+4. Stx1a — Δexpr = -0.0107 ↓
+5. Nrgn — Δexpr = -0.0106 ↓
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_16_1.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_16_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">ligand_</span> <span class="o">+</span> <span class="s1">&#39;-&gt;&#39;</span> <span class="o">+</span> <span class="n">receptor_</span><span class="p">]</span> <span class="o">=</span> <span class="n">SCILD_tensor</span><span class="p">[:,</span> <span class="n">ligand_to_index</span><span class="p">[</span><span class="n">ligand_</span><span class="p">],</span> <span class="n">receptor_to_index</span><span class="p">[</span><span class="n">receptor_</span><span class="p">]]</span>
+<span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">ligand_</span> <span class="o">+</span> <span class="s1">&#39;-&gt;&#39;</span> <span class="o">+</span> <span class="n">receptor_</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_17_1.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_17_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;top_up_idx&#39;</span><span class="p">]],</span>
+                      <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_18_1.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_18_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">TG_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ablation_results</span><span class="p">[</span><span class="s1">&#39;top_down_idx&#39;</span><span class="p">]],</span>
+                      <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_TG_AdultMouseBrain_Visium_19_1.png" src="../_images/analyses_TG_AdultMouseBrain_Visium_19_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="TG_HumanBreastCancer_Visium.html" class="btn btn-neutral float-left" title="HumanBreastCancer (Visium) In Silico Knockout Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

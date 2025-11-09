@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HumanBreastCancer (Xenium) Analysis Tutorial &mdash; SCILD 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="HumanBreastCancer (Visium) Analysis Tutorial" href="SCILD_HumanBreastCancer_Visium.html" />
+    <link rel="prev" title="Tutorials" href="../tutorials.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/SCILDlogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HumanBreastCancer (Xenium) Analysis Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Import-data">Import data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-L-R-database">Create L-R database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Run-SCILD">Run SCILD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Extract-LR-CCC">Extract LR CCC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_HumanBreastCancer_Visium.html">HumanBreastCancer (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_AdultMouseBrain_Visium.html">AdultMouseBrain (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseCortex_STARmap.html">MouseCortex (STARmap) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseBrain_MERFISH.html">MouseBrain (MERFISH) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_MouseEmbryo_MOSTA.html">MOSTA (Stereoseq) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SCILD_PDAC_Visium.html">PDAC (Visium) Analysis Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_HumanBreastCancer_Xenium.html">HumanBreastCancer (Xenium) In Silico Knockout Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_HumanBreastCancer_Visium.html">HumanBreastCancer (Visium) In Silico Knockout Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TG_AdultMouseBrain_Visium.html">AdultMouseBrain (Visium) In Silico Knockout Tutorial</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SCILD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">HumanBreastCancer (Xenium) Analysis Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/analyses/SCILD_HumanBreastCancer_Xenium.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="HumanBreastCancer-(Xenium)-Analysis-Tutorial">
+<h1>HumanBreastCancer (Xenium) Analysis Tutorial<a class="headerlink" href="#HumanBreastCancer-(Xenium)-Analysis-Tutorial" title="Link to this heading"></a></h1>
+<p style="color:#1E90FF;"><p>Data availability: All processed spatial transcriptomics datasets are publicly available on Zenodo: <a class="reference external" href="https://doi.org/10.5281/zenodo.17522268">https://doi.org/10.5281/zenodo.17522268</a></p>
+</p><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.SCILD_main</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">models.help_func</span> <span class="kn">import</span> <span class="n">create_LRDatabase_D</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+<span class="kn">import</span> <span class="nn">squidpy</span> <span class="k">as</span> <span class="nn">sq</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Import-data">
+<h2>Import data<a class="headerlink" href="#Import-data" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data_name = &#39;DCIS1&#39;</span>
+<span class="n">data_name</span> <span class="o">=</span> <span class="s1">&#39;DCIS2&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;./data/HumanBreastCancerXenium_adata_processed_</span><span class="si">{</span><span class="n">data_name</span><span class="si">}</span><span class="s1">.h5ad&#39;</span><span class="p">)</span>
+<span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 4794 × 311
+    obs: &#39;cell_id&#39;, &#39;transcript_counts&#39;, &#39;control_probe_counts&#39;, &#39;control_codeword_counts&#39;, &#39;total_counts&#39;, &#39;cell_area&#39;, &#39;nucleus_area&#39;, &#39;region&#39;, &#39;celltype&#39;, &#39;in_roi&#39;, &#39;n_genes&#39;
+    var: &#39;gene_ids&#39;, &#39;feature_types&#39;, &#39;genome&#39;, &#39;n_cells&#39;
+    uns: &#39;celltype_colors&#39;, &#39;log1p&#39;, &#39;spatialdata_attrs&#39;
+    obsm: &#39;spatial&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sq</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;celltype&quot;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;cell type&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Please specify a valid `library_id` or set it permanently in `adata.uns[&#39;spatial&#39;]`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_HumanBreastCancer_Xenium_6_1.png" src="../_images/analyses_SCILD_HumanBreastCancer_Xenium_6_1.png" />
+</div>
+</div>
+</section>
+<section id="Create-L-R-database">
+<h2>Create L-R database<a class="headerlink" href="#Create-L-R-database" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LRDatabase_D</span> <span class="o">=</span> <span class="n">create_LRDatabase_D</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">min_cell_pct</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;CellChat&#39;</span><span class="p">,</span>
+    <span class="n">species</span><span class="o">=</span><span class="s1">&#39;human&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LRDatabase_D</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>receptor</th>
+      <th>CXCR4</th>
+      <th>EDNRB</th>
+      <th>SDC4</th>
+    </tr>
+    <tr>
+      <th>ligand</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>CXCL12</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>EDN1</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>PTN</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Run-SCILD">
+<h2>Run SCILD<a class="headerlink" href="#Run-SCILD" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span> <span class="o">=</span> <span class="n">SCILD</span><span class="p">(</span><span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+                <span class="n">LRDatabase_D</span><span class="o">=</span><span class="n">LRDatabase_D</span><span class="p">,</span>
+                <span class="n">neighbor_k</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                <span class="n">alpha_q</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">alpha_f</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">alpha_g</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">niter_max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                <span class="n">eps</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">plot_error</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+<span class="n">CCCProb</span><span class="o">.</span><span class="n">preparing</span><span class="p">()</span>
+<span class="n">nl</span> <span class="o">=</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">nl</span>
+<span class="n">nr</span> <span class="o">=</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">nr</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">ns</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The number of ligand is: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nl</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The number of receptor is: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The number of spot is: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ns</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+*************Preparing*************
+neighbor_k: 20
+The number of ligand is: 3
+The number of receptor is: 3
+The number of spot is: 4794
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">nl</span> <span class="o">*</span> <span class="n">ns</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">v0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">nr</span> <span class="o">*</span> <span class="n">ns</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">CCCProb</span><span class="o">.</span><span class="n">solving_optimization</span><span class="p">(</span><span class="n">mu0</span><span class="p">,</span> <span class="n">v0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+*************Solving*************
+The relative error is: 0.05192437992530585
+The relative error is: 0.028486725024731874
+The relative error is: 0.02025789702458264
+The relative error is: 0.01596560021255227
+The relative error is: 0.013300769537026701
+The relative error is: 0.011476945051522578
+The relative error is: 0.010126550089702422
+The relative error is: 0.009080509156811996
+The relative error is: 0.008242905085682877
+The relative error is: 0.007554971082628599
+
+ The final relative error is: 0.007554971082628599
+The total iteration step is: 100
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_HumanBreastCancer_Xenium_12_1.png" src="../_images/analyses_SCILD_HumanBreastCancer_Xenium_12_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 4794 × 311
+    obs: &#39;cell_id&#39;, &#39;transcript_counts&#39;, &#39;control_probe_counts&#39;, &#39;control_codeword_counts&#39;, &#39;total_counts&#39;, &#39;cell_area&#39;, &#39;nucleus_area&#39;, &#39;region&#39;, &#39;celltype&#39;, &#39;in_roi&#39;, &#39;n_genes&#39;
+    var: &#39;gene_ids&#39;, &#39;feature_types&#39;, &#39;genome&#39;, &#39;n_cells&#39;
+    uns: &#39;celltype_colors&#39;, &#39;log1p&#39;, &#39;spatialdata_attrs&#39;
+    obsm: &#39;spatial&#39;, &#39;sum-sender-Q&#39;, &#39;sum-sender-P&#39;, &#39;sum-receiver&#39;
+</pre></div></div>
+</div>
+</section>
+<section id="Extract-LR-CCC">
+<h2>Extract LR CCC<a class="headerlink" href="#Extract-LR-CCC" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span><span class="o">.</span><span class="n">query_all_LR</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span><span class="o">.</span><span class="n">tensor_P</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(4794, 4794, 3, 3)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_dict</span> <span class="o">=</span> <span class="n">tensor_to_method_result</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">tensor_P</span><span class="p">,</span>
+                                   <span class="nb">list</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">LRDatabase_D</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
+                                   <span class="nb">list</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">LRDatabase_D</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">res_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+9
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_dict</span> <span class="o">=</span> <span class="n">filter_method_result_by_LR_database</span><span class="p">(</span><span class="n">res_dict</span><span class="p">,</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">LRDatabase_D</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">res_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./results/HumanBreastCancerXenium_</span><span class="si">{</span><span class="n">data_name</span><span class="si">}</span><span class="s2">_SCILD_result.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">res_dict</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Visualization">
+<h2>Visualization<a class="headerlink" href="#Visualization" title="Link to this heading"></a></h2>
+<p>select L-Rs to show (spatial)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCC_df</span> <span class="o">=</span> <span class="n">CCCProb</span><span class="o">.</span><span class="n">compute_TSSR</span><span class="p">()</span>
+<span class="n">CCC_adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">AnnData</span><span class="p">(</span><span class="n">CCC_df</span><span class="p">)</span>
+<span class="n">CCC_adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;spatial&#39;</span><span class="p">]</span>
+<span class="n">CCC_adata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 4794 × 6
+    obsm: &#39;spatial&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">CCC_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">CCC_df</span>
+<span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cell_id</th>
+      <th>transcript_counts</th>
+      <th>control_probe_counts</th>
+      <th>control_codeword_counts</th>
+      <th>total_counts</th>
+      <th>cell_area</th>
+      <th>nucleus_area</th>
+      <th>region</th>
+      <th>celltype</th>
+      <th>in_roi</th>
+      <th>n_genes</th>
+      <th>CXCL12-&gt;CXCR4 (S)</th>
+      <th>CXCL12-&gt;CXCR4 (R)</th>
+      <th>EDN1-&gt;EDNRB (S)</th>
+      <th>EDN1-&gt;EDNRB (R)</th>
+      <th>PTN-&gt;SDC4 (S)</th>
+      <th>PTN-&gt;SDC4 (R)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4355</th>
+      <td>4356</td>
+      <td>267</td>
+      <td>0</td>
+      <td>0</td>
+      <td>267</td>
+      <td>232.509531</td>
+      <td>30.345000</td>
+      <td>cell_circles</td>
+      <td>Stromal</td>
+      <td>True</td>
+      <td>82</td>
+      <td>1.926135</td>
+      <td>1.369234e-07</td>
+      <td>7.178474e-47</td>
+      <td>7.769933e-10</td>
+      <td>5.546523e-49</td>
+      <td>8.435185e-08</td>
+    </tr>
+    <tr>
+      <th>4356</th>
+      <td>4357</td>
+      <td>329</td>
+      <td>0</td>
+      <td>0</td>
+      <td>329</td>
+      <td>344.722813</td>
+      <td>71.662969</td>
+      <td>cell_circles</td>
+      <td>Stromal</td>
+      <td>True</td>
+      <td>87</td>
+      <td>2.312519</td>
+      <td>4.810222e-08</td>
+      <td>9.695835e-47</td>
+      <td>4.866745e-08</td>
+      <td>6.791721e-01</td>
+      <td>1.305466e-09</td>
+    </tr>
+    <tr>
+      <th>4357</th>
+      <td>4358</td>
+      <td>101</td>
+      <td>0</td>
+      <td>0</td>
+      <td>102</td>
+      <td>90.131875</td>
+      <td>5.870312</td>
+      <td>cell_circles</td>
+      <td>Stromal</td>
+      <td>True</td>
+      <td>33</td>
+      <td>2.902932</td>
+      <td>1.510811e-07</td>
+      <td>6.337316e-47</td>
+      <td>1.047398e-11</td>
+      <td>8.029149e-48</td>
+      <td>1.195343e-08</td>
+    </tr>
+    <tr>
+      <th>4358</th>
+      <td>4359</td>
+      <td>131</td>
+      <td>0</td>
+      <td>0</td>
+      <td>131</td>
+      <td>77.036563</td>
+      <td>13.005000</td>
+      <td>cell_circles</td>
+      <td>Stromal</td>
+      <td>True</td>
+      <td>48</td>
+      <td>3.503055</td>
+      <td>2.246962e-07</td>
+      <td>8.164045e-47</td>
+      <td>1.017825e-15</td>
+      <td>8.380267e-48</td>
+      <td>9.340701e-08</td>
+    </tr>
+    <tr>
+      <th>4389</th>
+      <td>4390</td>
+      <td>350</td>
+      <td>0</td>
+      <td>0</td>
+      <td>350</td>
+      <td>443.344063</td>
+      <td>30.164375</td>
+      <td>cell_circles</td>
+      <td>Stromal</td>
+      <td>True</td>
+      <td>93</td>
+      <td>3.758691</td>
+      <td>8.074165e-08</td>
+      <td>1.258750e-46</td>
+      <td>3.617075e-02</td>
+      <td>2.644387e-01</td>
+      <td>3.387314e-19</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">img_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_HumanBreastCancer_Xenium_24_0.png" src="../_images/analyses_SCILD_HumanBreastCancer_Xenium_24_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="n">CCCProb</span><span class="o">.</span><span class="n">adata</span><span class="p">,</span> <span class="n">spot_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CXCL12&#39;</span><span class="p">,</span> <span class="s1">&#39;CXCR4&#39;</span><span class="p">,</span> <span class="s1">&#39;EDN1&#39;</span><span class="p">,</span> <span class="s1">&#39;EDNRB&#39;</span><span class="p">,</span> <span class="s1">&#39;PTN&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC4&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">img_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/analyses_SCILD_HumanBreastCancer_Xenium_25_0.png" src="../_images/analyses_SCILD_HumanBreastCancer_Xenium_25_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SCILD_HumanBreastCancer_Visium.html" class="btn btn-neutral float-right" title="HumanBreastCancer (Visium) Analysis Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
